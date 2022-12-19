@@ -20,7 +20,7 @@ public class WriteObj {
     private static void writeListObject(File arquivo, List objects) throws IOException {
         OutputStream os = null;
         try {
-            os = new FileOutputStream(arquivo);
+            os = new FileOutputStream(arquivo, true);
             ObjectOutputStream oos = new ObjectOutputStream(os);
             for (Object object : objects) {
                 oos.writeObject(object);
