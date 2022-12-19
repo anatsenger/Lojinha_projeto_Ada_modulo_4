@@ -4,6 +4,9 @@ package Models;
 import lombok.experimental.SuperBuilder;
 
 import java.io.Serializable;
+import java.util.Comparator;
+import java.util.List;
+import java.util.NoSuchElementException;
 
 @SuperBuilder
 public class Clothes implements Serializable {
@@ -23,11 +26,10 @@ public class Clothes implements Serializable {
 
     @Override
     public String toString() {
-        return "Clothes{" + "id = "+ id +
-                "size ='" + size +
-                ", genre='" + genre +
-                ", price=" + price +
-                '}';
+        return "{Roupa: " + "id: "+ id +
+                ", Tamanho: " + size +
+                ", gênero: " + genre +
+                ", preço: " + price;
     }
 
     public int getId() {
@@ -40,5 +42,14 @@ public class Clothes implements Serializable {
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public static int getId(List<Clothes> list){
+        try {
+            var id = list.stream().max(Comparator.comparingInt(i -> i.getId())).get().getId();
+            return ++id;
+        }catch (NoSuchElementException g){
+            return 0;
+        }
     }
 }

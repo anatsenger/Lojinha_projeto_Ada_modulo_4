@@ -1,7 +1,10 @@
 package Models;
 
 import java.math.BigDecimal;
+import java.util.Comparator;
 import java.util.List;
+import java.util.NoSuchElementException;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
@@ -34,5 +37,17 @@ public class Seller extends Person{
         this.salary = salary;
     }
 
+    public static int getId(List<Seller> list){
+        try {
+            var id = list.stream().max(Comparator.comparingInt(i -> i.getId())).get().getId();
+            return ++id;
+        }catch (NoSuchElementException g){
+            return 0;
+        }
+    }
 
+    @Override
+    public String toString() {
+        return "{Vendedor: " + super.toString();
+    }
 }

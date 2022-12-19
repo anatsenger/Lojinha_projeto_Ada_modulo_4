@@ -18,9 +18,11 @@ public class NewBottom {
         Double price = sc.nextDouble();
         System.out.println("Comprimento da roupa: ");
         String length = sc.next();
-        var bottom = Bottom.builder().size(size).length(length).genre(genre).price(price).id(total++).build();
+        var bottom = Bottom.builder().size(size).length(length).genre(genre).price(price).id(Clothes.getId(Main.clothesList)).build();
         WriteObj.salvarEmArquivo(bottom, Main.arquivoRoupas);
         return bottom;
     }
+
+
 
 }

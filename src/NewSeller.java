@@ -1,22 +1,17 @@
 import Aquivos.WriteObj;
 import Models.*;
 
-import java.io.File;
 import java.io.IOException;
-import java.time.LocalDate;
-import java.util.List;
 import java.util.Scanner;
 
 public class NewSeller {
     static Scanner sc = new Scanner(System.in);
-    public static int total;
 
     public static Seller addSeller() throws IOException {
         System.out.println("Nome do novo vendedor: ");
         String name = sc.next().toLowerCase();
-        System.out.println("CPF do novo vendedor: ");
-        String CPF = sc.next();
-        var seller = Seller.builder().name(name.toLowerCase()).CPF(CPF).id(total++).build();
+        String CPF = Person.validaCPF("vendedor");
+        var seller = Seller.builder().name(name.toLowerCase()).CPF(CPF).id(Seller.getId(Main.sellersList)).build();
         WriteObj.salvarEmArquivo(seller, Main.arquivoSeller);
         return seller;
     }

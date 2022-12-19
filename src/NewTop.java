@@ -1,7 +1,10 @@
 import Aquivos.WriteObj;
+import Models.Clothes;
 import Models.Top;
 
 import java.io.IOException;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Scanner;
 
 public class NewTop {
@@ -17,8 +20,9 @@ public class NewTop {
         Double price = sc.nextDouble();
         System.out.println("Comprimento da manda: ");
         String sleeve = sc.next();
-        var top = Top.builder().genre(genre).sleeve(sleeve).size(size).price(price).id(total++).build();
+        var top = Top.builder().genre(genre).sleeve(sleeve).size(size).price(price).id(Clothes.getId(Main.clothesList)).build();
         WriteObj.salvarEmArquivo(top, Main.arquivoRoupas);
         return top;
     }
+
 }

@@ -26,8 +26,7 @@ public class Bottom extends Clothes implements Serializable {
 
     @Override
     public String toString() {
-        return super.toString() + "Models.Bottom{" +
-                "length='" + length + '\'' +
-                '}';
+        return super.toString() + ", Tipo: de baixo" +
+                ", Comprimento: " + length + "}";
     }
 }

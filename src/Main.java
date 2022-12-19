@@ -77,7 +77,7 @@ public class Main {
         } else if (sc.nextInt()==2) {
             clothesList.add(NewBottom.addBottom());
         } else {
-            System.out.println("opção inválida, tente novamente!");
+            System.out.println("Opção inválida, tente novamente!");
             registerClothes();
         }
     }
@@ -138,6 +138,7 @@ public class Main {
         System.out.println("");
         System.out.println("--------------------Sistema finalizado-------------------------");
     }
+
 
 
 }

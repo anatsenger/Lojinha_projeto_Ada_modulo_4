@@ -20,8 +20,7 @@ public class Top extends Clothes implements Serializable {
 
     @Override
     public String toString() {
-        return super.toString() + "Models.Top{" +
-                "tipe='" + sleeve + '\'' +
-                '}';
+        return super.toString() + ", Tipo: Top" +
+                ", Tipo da manga: " + sleeve +"}";
     }
 }

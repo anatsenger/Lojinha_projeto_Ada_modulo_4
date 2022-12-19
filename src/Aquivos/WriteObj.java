@@ -11,7 +11,7 @@ import java.util.List;
 
 public class WriteObj {
     public static  void salvarEmArquivo(Object obj, File arquivo) throws IOException {
-        try (var out = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(arquivo)))) {
+        try (var out = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(arquivo, true)))) {
             out.writeObject(obj);
             out.flush();
         }
