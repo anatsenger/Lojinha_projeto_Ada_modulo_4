@@ -63,7 +63,7 @@ public class Main {
 
     public static void makeSale(Seller seller, Clothes clothes, Client client) throws IOException {
         clothesList.remove(clothes);
-        var sale= Sale.builder().clothes(clothes).client(client).seller(seller).dateSale(LocalDate.parse(LocalDate.now().format(formatter))).build();
+        var sale= Sale.builder().clothes(clothes).client(client).seller(seller).dateSale(LocalDate.now()).build();
         saleList.add(sale);
         WriteObj.salvarEmArquivo(sale, arquivoSale);
     }
