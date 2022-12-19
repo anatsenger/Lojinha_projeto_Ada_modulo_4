@@ -11,7 +11,6 @@ public class Sale implements Serializable {
     private Clothes clothes;
     private Seller seller;
     private Client client;
-
     private LocalDate dateSale;
 
     public Clothes getClothes() {

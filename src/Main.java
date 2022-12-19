@@ -5,14 +5,14 @@ import java.io.*;
 import java.lang.Thread;
 import java.io.File;
 
-import java.nio.file.Paths;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
+
+import static java.lang.Integer.parseInt;
 
 public class Main {
+    static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     static Scanner sc = new Scanner(System.in);
     public static List<Seller> sellersList = new ArrayList<>();
     public static List<Sale> saleList = new ArrayList<>();
@@ -39,25 +39,31 @@ public class Main {
     }
 
     public static void doSale() throws IOException, ClassNotFoundException {
-        showClothes();
-        System.out.println("Id da roupa vendida: ");
-        var id = sc.nextInt();
-        var clotheSale = clothesList.stream().filter(clothes -> clothes.getId() == id).findFirst().get();
-        System.out.println("Nome do vendedor: ");
-        var sellerSale = sellersList.stream().filter(seller -> seller.getName().equals(sc.next().toLowerCase())).findFirst().get();
-        System.out.println("Nome do Cliente: ");
-        var clientSale = clientsList.stream().filter(client -> client.getName().equals(sc.next().toLowerCase())).findFirst().get();
-        makeSale(sellerSale, clotheSale, clientSale);
-        WriteObj.deleteClothe(arquivoRoupas, id);
+        listAll();
+        try{
+            System.out.println("Id da roupa vendida: ");
+            var id = parseInt(sc.next());
+            var clotheSale = clothesList.stream().filter(clothes -> clothes.getId() == id).findFirst().get();
+            System.out.println("Nome do vendedor: ");
+            var sellerSale = sellersList.stream().filter(seller -> seller.getName().equals(sc.next().toLowerCase())).findFirst().get();
+            System.out.println("Nome do Cliente: ");
+            var clientSale = clientsList.stream().filter(client -> client.getName().equals(sc.next().toLowerCase())).findFirst().get();
+            makeSale(sellerSale, clotheSale, clientSale);
+            WriteObj.deleteClothe(arquivoRoupas, id);
+        }catch (NumberFormatException a){
+            System.out.println("Opção inválida, tente novamente!");
+            doSale();
+        }catch (NoSuchElementException f){
+            System.out.println("Opção não existe, tente novamente!");
+            doSale();
+        }
     }
 
-    public static void showClothes(){
-        System.out.println(clothesList.toString());
-    }
+
 
     public static void makeSale(Seller seller, Clothes clothes, Client client) throws IOException {
         clothesList.remove(clothes);
-        var sale= Sale.builder().clothes(clothes).client(client).seller(seller).dateSale(LocalDate.now()).build();
+        var sale= Sale.builder().clothes(clothes).client(client).seller(seller).dateSale(LocalDate.parse(LocalDate.now().format(formatter))).build();
         saleList.add(sale);
         WriteObj.salvarEmArquivo(sale, arquivoSale);
     }
@@ -77,6 +83,21 @@ public class Main {
     }
 
     public static void menu() throws IOException, ClassNotFoundException {
+        switch (menuOptions()) {
+            case 1 -> doSale();
+            case 2 -> clientsList.add(NewClient.addClient());
+            case 3 -> sellersList.add(NewSeller.addSeller());
+            case 4 -> registerClothes();
+            case 6 -> continuar = false;
+            case 7 -> listAll();
+            default -> {
+                System.out.println("Opção inválida, tente novamente!");
+                menu();
+            }
+        }
+    }
+
+    public static int menuOptions(){
         System.out.println("------------------------Menu de opções--------------------------");
         System.out.println("1 - Registrar nova Venda;");
         System.out.println("2 - Registrar novo Cliente;");
@@ -85,16 +106,13 @@ public class Main {
         System.out.println("6 - Finalizar sistema;");
         System.out.println("7 - Listar vendedores, clientes e roupas");
         System.out.println("Que operação deseja realizar?");
-        switch (sc.nextInt()){
-            case 1: doSale(); break;
-            case 2: clientsList.add(NewClient.addClient()); break;
-            case 3: sellersList.add(NewSeller.addSeller()); break;
-            case 4: registerClothes(); break;
-            case 6: continuar = false; break;
-            case 7: listAll(); break;
-            default: System.out.println("Opção inválida, tente novamente!");
-                menu();
+        try{
+            return parseInt(sc.next());
+        }catch (NumberFormatException e){
+            System.out.println("Opção inválida, tente novamente!");
+            menuOptions();
         }
+        return 7;
     }
 
     public static void init(){
