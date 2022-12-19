@@ -59,10 +59,9 @@ public class Person implements Serializable {
 
     public static String validaCPF(String tipo){
         //111.111.111-11;
-        System.out.println("CPF do novo " + tipo + ":");
+        System.out.println("CPF do novo " + tipo + "(xxx.xxx.xxx-xx):");
         String CPF = sc.nextLine();
         var cpfSplit = CPF.split("");
-        System.out.println(cpfSplit[3] + cpfSplit[7] + cpfSplit[11]);
         if(cpfSplit.length == 14 || cpfSplit[3].equals(".") || cpfSplit[7].equals(".") || cpfSplit[11].equals("-")){
             System.out.println("Cpf válido");
             return CPF;
