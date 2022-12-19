@@ -88,8 +88,8 @@ public class Main {
             case 2 -> clientsList.add(NewClient.addClient());
             case 3 -> sellersList.add(NewSeller.addSeller());
             case 4 -> registerClothes();
-            case 6 -> continuar = false;
-            case 7 -> listAll();
+            case 5 -> continuar = false;
+            case 6 -> listAll();
             default -> {
                 System.out.println("Opção inválida, tente novamente!");
                 menu();
@@ -103,8 +103,8 @@ public class Main {
         System.out.println("2 - Registrar novo Cliente;");
         System.out.println("3 - Registrar novo Vendedor;");
         System.out.println("4 - Registrar novas Roupas;");
-        System.out.println("6 - Finalizar sistema;");
-        System.out.println("7 - Listar vendedores, clientes e roupas");
+        System.out.println("5 - Finalizar sistema;");
+        System.out.println("6 - Listar vendedores, clientes e roupas;");
         System.out.println("Que operação deseja realizar?");
         try{
             return parseInt(sc.next());

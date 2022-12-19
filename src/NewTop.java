@@ -18,7 +18,7 @@ public class NewTop {
         String genre = sc.next();
         System.out.println("Preço da roupa: ");
         Double price = sc.nextDouble();
-        System.out.println("Comprimento da manda: ");
+        System.out.println("Comprimento da manga: ");
         String sleeve = sc.next();
         var top = Top.builder().genre(genre).sleeve(sleeve).size(size).price(price).id(Clothes.getId(Main.clothesList)).build();
         WriteObj.salvarEmArquivo(top, Main.arquivoRoupas);
